@@ -1,6 +1,9 @@
+-- launch: alpha is a fast and fully programmable greeter for neovim
+
+-- lua: this is the Plugin Spec
 local M = {
   "goolord/alpha-nvim",
-  event = "VimEnter",
+  event = "VimEnter",  -- lazy: lazy-load on VimEnter event (after all startup)
   commit = "234822140b265ec4ba3203e3e0be0e0bb826dff5",
 }
 
