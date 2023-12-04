@@ -67,3 +67,7 @@ vim.cmd [[set iskeyword+=-]]
 -- nvim: `vim.g` access global variables
 vim.g.netrw_banner = 0 -- suppress the banner
 vim.g.netrw_mouse = 2 -- ???
+
+-- david: disable netrw as recommended by nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1

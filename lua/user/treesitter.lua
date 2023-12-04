@@ -1,48 +1,51 @@
 local M = {
   "nvim-treesitter/nvim-treesitter",
   event = { "BufReadPost", "BufNewFile" },
-  commit = "afa103385a2b5ef060596ed822ef63276ae88016",
   build = ":TSUpdate",
   dependencies = {
     {
       "nvim-treesitter/nvim-treesitter-textobjects",
       event = "VeryLazy",
-      commit = "78c49ca7d2f7ccba2115c11422c037713c978ad1",
     },
     {
       "JoosepAlviste/nvim-ts-context-commentstring",
       event = "VeryLazy",
-      commit = "92e688f013c69f90c9bbd596019ec10235bc51de",
     },
     {
       "windwp/nvim-ts-autotag",
       event = "VeryLazy",
-      commit = "6be1192965df35f94b8ea6d323354f7dc7a557e4",
     },
     {
       "windwp/nvim-autopairs",
       event = "InsertEnter",
-      commit = "f6c71641f6f183427a651c0ce4ba3fb89404fa9e",
     },
   },
 }
 function M.config()
+  -- ts: this is how treesitter modules are configured and enabled
   require("nvim-treesitter.configs").setup {
-    ensure_installed = { "lua", "markdown", "markdown_inline", "bash", "python" }, -- put the language you want in this array
-    ignore_install = { "" },
+    -- A list of parser names, or "all" (the first five parsers should always be installed)
+    ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "bash", "python" },
     sync_install = false,
+    auto_install = true,
+    ignore_install = { "" },
+
+    -- ts: consistent syntax highlighting module (part of treesitter)
     highlight = {
       enable = true,
-      disable = { "markdown" },
+      -- david: highlight markdown files too, thanks
+      disable = { },
       additional_vim_regex_highlighting = false,
     },
 
+    -- ts: indentation based on treesitter for the = (C-indenting) operator (experimental)
     indent = { enable = true },
 
-    matchup = {
-      enable = { "astro" },
-      disable = { "lua" },
-    },
+    -- launch: vim-matchup is powered by nvim-treesitter but it's not part of Launch.nvim :S
+    -- matchup = {
+    --   enable = { "astro" },
+    --   disable = { "lua" },
+    -- },
 
     autotag = { enable = true },
 
@@ -56,8 +59,10 @@ function M.config()
     textobjects = {
       select = {
         enable = true,
+
         -- Automatically jump forward to textobj, similar to targets.vim
         lookahead = true,
+
         keymaps = {
           -- You can use the capture groups defined in textobjects.scm
           ["af"] = "@function.outer",
@@ -86,32 +91,6 @@ function M.config()
       },
     },
   }
-
-  -- local configs = require "nvim-treesitter.configs"
-  --
-  -- configs.setup {
-  --   -- modules = {
-  --   --
-  --   --
-  --   --   rainbow = {
-  --   --     enable = false,
-  --   --     query = {
-  --   --       "rainbow-parens",
-  --   --     },
-  --   --     strategy = require("ts-rainbow").strategy.global,
-  --   --     hlgroups = {
-  --   --       -- "TSRainbowRed",
-  --   --       "TSRainbowBlue",
-  --   --       -- "TSRainbowOrange",
-  --   --       -- "TSRainbowCoral",
-  --   --       "TSRainbowPink",
-  --   --       "TSRainbowYellow",
-  --   --       -- "TSRainbowViolet",
-  --   --       -- "TSRainbowGreen",
-  --   --     },
-  --   --   },
-  --   -- },
-  -- }
 end
 
 return M

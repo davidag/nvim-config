@@ -30,7 +30,8 @@ spec "user.diffview"
 spec "user.indentline"
 -- david: it's even faster when commented out
 -- spec "user.alpha"
-spec "user.netrw"
+-- david: ok, but it's disabled now, let's use nvimtree only
+-- spec "user.netrw"
 spec "user.project"
 spec "user.toggleterm"
 spec "user.bufdelete"
